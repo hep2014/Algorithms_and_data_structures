@@ -300,8 +300,13 @@ void printNumbers(CircularQueue* queue, int flag){
 
 //данная функция отвечает за запись количества элементов и времени, затраченного на сортировку, в csv файл
 void writeToCsv(int counter, double time_taken){
-	FILE *fp = fopen("result.csv", "a");
-	fprintf(fp, "%d, %lf\n", counter, time_taken);
+    FILE *fp = fopen("result.csv", "a");
+    if (fp == NULL) {
+        fprintf(stderr, RED_TEXT "Ошибка: не удалось открыть result.csv\n" RESET_TEXT);
+        return;
+    }
+    fprintf(fp, "%d, %lf\n", counter, time_taken);
+    fclose(fp);
 }
 
 int main(int argc, char *argv[]){
@@ -318,5 +323,6 @@ int main(int argc, char *argv[]){
 	fprintf(stdout, "Время, затраченное на сортировку: \033[0;32m %lf \033[0m секунд\n", time_taken);
 	fprintf(stdout, "Количество элементов и затраченное время записаны в файл \033[0;32m result.csv \033[0m\n");
 	writeToCsv(counter, time_taken);
+	freeQueue(queue);
 	return 0;
 }
