@@ -136,6 +136,7 @@ void readFromFile(Stack* stack, int* n){
 	}
 	if (*n == 1){
 		fprintf(stderr, RED_TEXT "В файле одно число. Этого мало для сортировки.\n" RESET_TEXT);
+		exit(1);
 	}
 }
 
